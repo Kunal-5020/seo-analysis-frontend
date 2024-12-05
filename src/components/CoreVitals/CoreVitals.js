@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/CoreVitals.css';
 import { generatePDF } from '../utils/DownloadPDF.js';
-// import PopupForm from '../utils/email.jsx';
+import PopupForm from '../utils/email.jsx';
 
 const PageSpeedInsights = () => {
   const [url, setUrl] = useState('');
@@ -10,13 +10,16 @@ const PageSpeedInsights = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [experienceView, setExperienceView] = useState('loadingExperience'); // Default is 'loadingExperience'
-  // const [showPopup, setShowPopup] = useState(false);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [loadTimes, setLoadTimes] = useState([]); // Track loading times
+  const [averageLoadTime, setAverageLoadTime] = useState(null); // Store average load time
 
   const fetchPageSpeedData = async () => {
     setLoading(true);
     setError(null);
     setData(null);
-
+    const startTime = Date.now();
     try {
       const response = await fetch(
         `https://seo-analystics.onrender.com/pagespeed?url=${encodeURIComponent(url)}`
@@ -30,11 +33,20 @@ const PageSpeedInsights = () => {
     } catch (err) {
       setError(err.message);
     } finally {
+      const endTime = Date.now(); // Record end time
+      const loadTime = endTime - startTime; // Calculate load time
+      setLoadTimes(prev => [...prev, loadTime]); // Store individual load time
+      setAverageLoadTime(loadTimes.reduce((acc, time) => acc + time, 0) / loadTimes.length); // Calculate average
       setLoading(false);
     }
   };
 
   const handleDownloadReportPDF = () => {
+    if (!isFormSubmitted) {
+      alert('Please submit the form before downloading the report!');
+      return;
+    }
+
     const reportField = document.querySelector('.both-view');
     if (!reportField) {
       alert('No report available to download!');
@@ -42,6 +54,31 @@ const PageSpeedInsights = () => {
     }
     generatePDF('both-view', url);
   };
+
+  const handleFormSubmission = () => {
+    setIsFormSubmitted(true); 
+    localStorage.setItem('formSubmitted', 'true');
+    setIsPopupVisible(false); // Close the popup form
+    handleDownloadReportPDF();
+  };
+
+  const checkIfFormSubmitted = () => {
+    return localStorage.getItem('formSubmitted') === 'true';
+  };
+
+  const isOldUser = checkIfFormSubmitted();
+
+  const handleDownload=()=>{
+    if(!isOldUser){
+      setIsPopupVisible(true)
+    }
+    else{
+      setIsFormSubmitted(true)
+      handleDownloadReportPDF();
+    }
+  }
+
+
 
   const checkCoreVitals = (experienceData) => {
     if (!experienceData?.metrics) return 'N/A';
@@ -182,6 +219,7 @@ const PageSpeedInsights = () => {
       }
     }
     
+  
 
     return (
 <>
@@ -241,7 +279,7 @@ const PageSpeedInsights = () => {
 
     return (
       <><br />
-      <button className="part-button download-pdf-button" onClick={handleDownloadReportPDF}>
+      <button className="part-button download-pdf-button" onClick={handleDownload}>
             Download Report as PDF
           </button>
           <br />
@@ -285,6 +323,18 @@ const PageSpeedInsights = () => {
     });
   };
 
+const renderLoadingScreen = () => {
+  return (
+    <div className="loading-screen">
+      <div className="circle-loader">
+        <div className="circle-inner"></div>
+      </div>
+      <p>Loading... <span className="loading-time">({averageLoadTime ? averageLoadTime.toFixed(0)/1000 + ' s' : 'N/A'})</span></p>
+    </div>
+  );
+};
+
+
   return (
     <>
     <div className="details-section">
@@ -316,7 +366,7 @@ const PageSpeedInsights = () => {
         </button>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && renderLoadingScreen()}
       {error && <p className="error-text">{error}</p>}
       {data && (
         <div className="results-section">
@@ -366,6 +416,14 @@ const PageSpeedInsights = () => {
           {view === 'both' ? renderBothData() : renderData(view)}
         </div>
       )}
+
+{/* Popup Form */}
+{isPopupVisible && (
+        <div className="popup-overlay">
+          <PopupForm onSubmit={handleFormSubmission} setIsPopupVisible={setIsPopupVisible} />
+        </div>
+      )}
+
     </div>
     </>
   );

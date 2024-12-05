@@ -5,6 +5,7 @@ import Navbar from './components/navbar/navbar';
 // import ComingSoon from './components/ComingSoon';
 import PageSpeedInsights from './components/CoreVitals/CoreVitals';
 import './App.css';
+import './components/styles/loadingscreen.css';
 
 const App = () => {
   return (

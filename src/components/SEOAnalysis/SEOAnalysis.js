@@ -31,7 +31,7 @@ const SEOAnalysis = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [allResults, setAllResults] = useState({});
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false); // Track form submission status
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false); 
 
   const handleAnalyze = async () => {
     if (!url) {
@@ -108,24 +108,28 @@ const SEOAnalysis = () => {
   };
 
   const handleFormSubmission = () => {
-    setIsFormSubmitted(true); // Mark the form as submitted
-    sessionStorage.setItem('formSubmitted', 'true');
+    setIsFormSubmitted(true); 
+    localStorage.setItem('formSubmitted', 'true');
     setIsPopupVisible(false); // Close the popup form
     handleDownloadReportPDF();
   };
 
   const checkIfFormSubmitted = () => {
-    return sessionStorage.getItem('formSubmitted') === 'true';
+    return localStorage.getItem('formSubmitted') === 'true';
   };
 
   const isOldUser = checkIfFormSubmitted();
 
-  // Show the popup form only to new users (old users won't see it)
-  React.useEffect(() => {
-    if (!isOldUser) {
-      setIsPopupVisible(true);
+  const handleDownload=()=>{
+    if(!isOldUser){
+      setIsPopupVisible(true)
     }
-  }, [isOldUser]);
+    else{
+      setIsFormSubmitted(true)
+      handleDownloadReportPDF();
+    }
+  }
+
 
   return (
     <div className="seo-analysis">
@@ -184,7 +188,7 @@ const SEOAnalysis = () => {
 
       {selectedPart && (
         <div>
-          <button className="part-button download-pdf-button" onClick={setIsPopupVisible(true)}>
+          <button className="part-button download-pdf-button" onClick={handleDownload}>
             Download Report as PDF
           </button>
           <div className="report-field">
