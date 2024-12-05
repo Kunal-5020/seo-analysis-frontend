@@ -1,0 +1,432 @@
+/* General Container Styling */
+.seo-analysis {
+  max-width: 100%; /* Full width of the screen */
+  margin: 0 auto;
+  padding: 30px;
+  font-family: 'Roboto', sans-serif; /* Clean, modern font */
+  background-color: #ffffff; /* White background for the content */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Slightly darker shadow for depth */
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+  width: 80%; /* Content container width, adjusted to center the content */
+  max-width: 8.5in; /* Max width set to 8.5 inches */
+}
+
+/* Loading screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  color: white;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid transparent;
+  border-top: 5px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* URL Input Styling */
+.url-input {
+  display: flex;
+  flex-direction: column; /* Stack input and button vertically */
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 0 10vw;
+}
+
+.url-input input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box; /* Prevent overflow */
+}
+
+.url-input button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #007bff; /* Blue background */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.url-input button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Analyze Button Styling */
+.analyze-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #28a745; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+}
+
+.analyze-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Analysis Parts Styling */
+.analysis-parts {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.analysis-parts h3 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.analysis-parts p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.part-button {
+  margin: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #007bff; /* Blue background */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 200px;
+  transition: background-color 0.3s ease;
+}
+
+.part-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Report Field Styling */
+.report-field {
+  display: block !important;
+  overflow: hidden !important; /* Prevent any overflow outside the report field */
+  width: 100%;
+  max-width: 8.5in; /* Ensure report width is constrained */
+  padding: 20px;
+  background: white;
+  box-sizing: border-box; /* Ensure padding is included in width calculations */
+}
+
+/* Table Container Styling */
+.table-container {
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
+  margin-top: 20px;
+  width: 100%;
+  max-width: 8.5in; /* Ensure table doesn't extend beyond the report field */
+}
+
+table {
+  width: 100%; /* Table takes full width of the container */
+  table-layout: fixed; /* Prevent table columns from expanding beyond the container */
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 2px solid #1e2be0;
+  padding: 12px;
+  text-align: left;
+}
+
+table td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal; /* Allow text to wrap within cells */
+}
+
+/* Output Status */
+.output-status {
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  max-width: fit-content;
+}
+
+.success {
+  background-color: #28a745;
+  color: white;
+}
+
+.warning {
+  background-color: #e4f313;
+  color: white;
+}
+
+.failure {
+  background-color: #e11313;
+  color: white;
+}
+
+/* Meta Tag Report Styling */
+.meta-tags-report {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.meta-tag-section {
+  margin-bottom: 30px;
+}
+
+.meta-tag-section p {
+  margin: 5px 0;
+}
+
+h2 {
+  padding: 10px 20px;
+  color: #fff;
+  margin-bottom: 10px;
+  border: 2px solid rgb(15, 59, 216);
+  background-color: rgb(15, 59, 216);
+  display: inline-block; /* Ensures the border wraps tightly around the content */
+  border-radius: 20px;
+}
+
+h3 {
+  color: #e11313; /* Red for headings */
+  margin-bottom: 10px;
+}
+
+.meta-report {
+  font-style: italic;
+  color: #555;
+}
+
+/* Question and Answer */
+.question {
+  color: #1678d3; /* Blue for questions */
+  text-align: left;
+}
+
+.answer {
+  padding-left: 20px;
+  color: #555;
+  text-align: left;
+}
+
+/* Download PDF Button */
+.download-pdf-button {
+  background-color: #7c0707;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.download-pdf-button:hover {
+  background-color: #f01a1a;
+}
+
+/* SEO Intro */
+.seo-intro {
+  background: linear-gradient(to right, #007bff, #66b3ff); /* Soft blue gradient */
+  padding: 30px;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.seo-intro h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.seo-intro p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .seo-analysis {
+    padding: 15px;
+    padding-top: 0;
+    width: 95%; /* Use most of the screen width */
+    border-radius: 8px; /* Slightly smaller border radius for mobile */
+  }
+
+  .url-input {
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 5vw; /* Adjust padding for smaller screens */
+  }
+
+  .url-input input,
+  .url-input button {
+    width: 100%;
+    font-size: 14px; /* Smaller font size for inputs and buttons */
+  }
+
+  .part-button {
+    font-size: 14px;
+    padding: 10px 18px;
+    width: 90%; /* Reduce button width to fit smaller screens */
+    margin: 10px auto; /* Center buttons */
+  }
+
+  .report-field {
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 8px; /* Match smaller border radius for mobile */
+  }
+
+  table th,
+  table td {
+    font-size: 12px; /* Smaller font size for table content */
+    padding: 8px;
+  }
+
+  h2 {
+    font-size: 1.8rem; /* Adjust heading size for readability */
+  }
+
+  h3 {
+    font-size: 1.2rem; /* Smaller font for subheadings */
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 4px; /* Adjust spinner size */
+  }
+
+  .download-pdf-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .seo-intro h1 {
+    font-size: 2rem;
+  }
+
+  .seo-intro p {
+   
+    font-size: 1rem; /* Smaller font size for mobile */
+    line-height: 1.4;
+  }
+}
+
+/* Additional styles for very small screens (e.g., phones in portrait mode) */
+@media (max-width: 480px) {
+  .seo-analysis {
+    padding: 10px;
+    width: 100%; /* Full width on very small screens */
+    border-radius: 6px;
+  }
+
+  .url-input input,
+  .url-input button {
+    font-size: 12px;
+  }
+
+  .part-button {
+    font-size: 12px;
+    padding: 8px 16px;
+    width: 80%; /* Adjust button size for smaller screens */
+  }
+
+  .seo-intro h1 {
+    font-size: 1.6rem;
+  }
+
+  .seo-intro p {
+    font-size: 0.9rem;
+  }
+
+  .table-container {
+    width: 100%;
+    padding: 0 5%; /* Padding adjustments for smaller screens */
+  }
+
+  table th,
+  table td {
+    font-size: 10px;
+    padding: 6px;
+  }
+
+  .loading-spinner {
+    width: 30px;
+    height: 30px;
+    border-width: 3px; /* Adjust spinner size further */
+  }
+
+  .download-pdf-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.popup-content button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-content button:hover {
+  background-color: #0056b3;
+}

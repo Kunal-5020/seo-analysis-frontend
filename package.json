@@ -3,13 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "emailjs-com": "^3.2.0",
+    "es6-promise": "^4.2.8",
+    "express": "^4.21.1",
+    "html2pdf.js": "^0.10.2",
+    "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-router-dom": "^7.0.2",
+    "react-scripts": "^5.0.1",
+    "url": "^0.11.4",
+    "web-vitals": "^2.1.4",
+    "xml2js": "^0.6.2"
   },
   "scripts": {
     "start": "react-scripts start",

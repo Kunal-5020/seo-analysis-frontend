@@ -1,0 +1,72 @@
+/* Navbar Styling */
+.navbar {
+  width: 100%;
+  background-color: white;
+  color: black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+/* Content inside the navbar */
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Center content */
+}
+
+/* Logo Styling */
+.logo img {
+  width: 120px; /* Adjust logo size */
+  height: auto;
+}
+
+/* Nav Buttons Container */
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Space between buttons */
+  flex-grow: 1; /* Allow the buttons container to grow and center */
+}
+
+.nav-btn {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.4s ease-in-out;
+}
+
+.nav-btn:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  transform: scale(1.05); /* Slight scaling on hover */
+}
+
+.nav-btn:active {
+  background: linear-gradient(135deg, #4e7cd0, #5c38c1);
+  transform: scale(1); /* Reset scale on click */
+}
+
+
+/* Responsive Styling for Smaller Screens */
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+    gap: 10px; /* Space between buttons for smaller screens */
+  }
+
+  .logo img {
+    width: 100px; /* Adjust logo size for smaller screens */
+  }
+}
