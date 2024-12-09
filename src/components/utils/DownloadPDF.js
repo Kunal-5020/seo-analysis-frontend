@@ -18,11 +18,6 @@ export const generatePDF = (className, url) => {
 
   console.log('Content Element:', contentElement); // Debugging
 
-  const logoSrc = 'https://i.ibb.co/Chmkbqb/e178c0b8bfa6.jpg';
-  const contactDetails = {
-    email: 'contact@dgtlmart.com',
-    phone: '9810559439',
-  };
 
   // Create a wrapper for the report with a styled header and footer
   const wrapper = document.createElement('div');
@@ -31,7 +26,7 @@ export const generatePDF = (className, url) => {
     <div style="text-align: center; margin-bottom: 20px; font-family: Arial, sans-serif;">
       <div style="display: flex; justify-content: center; align-items: center; border-bottom: 2px solid #34495E; padding-bottom: 10px;">
         <img
-          src="${logoSrc}"
+          src="https://i.ibb.co/Chmkbqb/e178c0b8bfa6.jpg"
           alt="Logo"
           style="width: 100px; height: 100px; margin-right: 20px;"
         />
@@ -40,13 +35,12 @@ export const generatePDF = (className, url) => {
       <p style="font-size: 14px; color: #34495E;">Generated on: ${new Date().toLocaleString()}</p>
     </div>
     <!-- Main Content -->
-    <div style="width: 100%; font-family: Arial, sans-serif;">
-      <h1>Report on ${url}</h1>    
+    <div style="width: 100%; font-family: Arial, sans-serif;">    
       ${contentElement.outerHTML}
     </div>
     <!-- Footer -->
     <div style="text-align: center; font-size: 14px; font-family: Arial, sans-serif; color: #7F8C8D; border-top: 1px solid #BDC3C7; padding-top: 10px;">
-      <p>Contact us: <a href="mailto:${contactDetails.email}" style="color: #2980B9;">${contactDetails.email}</a> | Phone: ${contactDetails.phone}</p>
+      <p>Contact us: <a href="mailto:contact@dgtlmart.com" style="color: #2980B9;">9810559439</a> | Phone: 9810559439</p>
       <p>Generated using SEO Analysis Tool</p>
     </div>
   `;
