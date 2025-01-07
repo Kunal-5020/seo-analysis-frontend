@@ -26,10 +26,10 @@ const Custom404 = (  result  ) => {
             <td>
               <p
                 className={`output-status ${
-                  data.custom404 === 'Custom' ? 'success' : 'failure'
+                  data.custom404 === 'YES' ? 'success' : 'failure'
                 }`}
               >
-                {data.custom404 === 'Custom' ? 'Success' : 'Failure'}
+                {data.custom404 === 'YES' ? 'Success' : 'Failure'}
               </p>
             </td>
           </tr>

@@ -20,9 +20,24 @@ const ImageTags = (results) => {
         <div className="favicon-section">
           <h3>Favicon</h3>
           <table>
+            <thead>
+              <tr>
+              <th><strong>Favicon Icon</strong></th>
+              <th><strong>Link</strong></th>
+              </tr>
+            </thead>
             <tbody>
               <tr>
-                <td><strong>Link:</strong></td>
+
+              <td>
+                  {favicon ? (
+                    <img src={favicon.href} alt="Favicon Preview" 
+                    width="50"
+                    height="50"/>
+                  ) : (
+                    'Not Found'
+                  )}
+                </td>
                 <td>
                   {favicon ? (
                     <a href={favicon.href} target="_blank" rel="noopener noreferrer">
@@ -32,48 +47,44 @@ const ImageTags = (results) => {
                     'Not Found'
                   )}
                 </td>
-              </tr>
-              <tr>
-                <td><strong>Preview:</strong></td>
-                <td>
-                  {favicon ? (
-                    <img src={favicon.href} alt="Favicon Preview" />
-                  ) : (
-                    'Not Found'
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Status:</strong></td>
-                <td>
-                  <span className={`output-status ${favicon ? 'success' : 'failure'}`}>
-                    {faviconStatus.status}
-                  </span>
-                </td>
+                
               </tr>
             </tbody>
           </table>
-          <p>
-            <strong>Report:</strong> {faviconStatus.report}
-          </p>
+          <br/>
+          <h3>OutPut</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td><strong>Status</strong></td>
+              <td><p className={`output-status ${favicon ? 'success' : 'failure'}`} > {faviconStatus.status} </p></td>
+            </tr>
+            <tr>
+            <td><strong>Report</strong></td>
+            <td>{faviconStatus.report}
+            </td>
+            </tr>
+          </tbody>
+        </table>
+
           <br />
           <p className="question">
             <strong>Why Favicon?</strong>
           </p>
           <p className="answer">
-            A favicon is crucial for webpage SEO as it enhances brand recognition and user experience, fostering trust and credibility, ultimately improving site engagement and search engine visibility.
+          A favicon is crucial for webpage SEO as it enhances brand recognition and user experience, fostering trust and credibility, ultimately improving site engagement and search engine visibility.
           </p>
         </div>
 
         {/* Images Section */}
         <div className="images-section">
           <h3>Images</h3>
-          <table>
+          <table className='table'>
             <thead>
               <tr>
                 <th>S.No</th>
                 <th>Link</th>
-                <th>Alt Attribute</th>
+                <th>Alt Attribute Present</th>
                 <th>Preview</th>
                 <th>Status</th>
                 {/* <th>Element</th> */}
@@ -119,7 +130,7 @@ const ImageTags = (results) => {
                           'Not Found'
                         )}
                       </td>
-                      <td>{missingAttributes.length > 0 ? missingAttributes.join(', ') : 'None'}</td>
+                      <td>{missingAttributes.length > 0 ? 'No' : 'Yes'}</td>
                       <td>
                         <img
                           src={validSrc}
@@ -150,17 +161,14 @@ const ImageTags = (results) => {
         </div>
         <br />
         <p className="question">
-          <strong>Required Attributes & Why?</strong>
+          <strong>Alt Attributes & Why?</strong>
         </p>
-        <p>
-          1. <b>Alt:</b> The alt attribute in the image tag is essential for SEO as it provides
+        <p className="answer">
+          The alt attribute in the image tag is essential for SEO as it provides
           textual context for the images, aiding search engine understanding and accessibility,
           thereby enhancing image search rankings.
         </p>
-        <p>
-          2. <b>Title:</b> Provide concise, descriptive titles for images to enhance search engine
-          understanding and user engagement, incorporating relevant keywords when appropriate.
-        </p>
+  
       </div>
     );
   } catch (error) {

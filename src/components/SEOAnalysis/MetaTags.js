@@ -63,13 +63,11 @@ const MetaTags = ({ result }) => {
               </tr>
               <tr>
                 <td><strong>Report</strong></td>
-                <td>{description}</td>
+                <td>{statusMessage}</td>
               </tr>
             </tbody>
           </table>
 
-          {/* Status message for each scenario */}
-          <p className={`status-message ${statusClass}`}>{statusMessage}</p>
 
           <br />
           <p className='question'>

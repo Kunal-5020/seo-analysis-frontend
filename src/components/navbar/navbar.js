@@ -15,6 +15,7 @@ const Navbar = () => {
         {/* Navigation Buttons */}
         <div className="nav-buttons">
           <Link to="/" className="nav-btn">SEO Analysis</Link>
+          <Link to="/add-on" className="nav-btn">Addon SEO Analysis</Link>
           <Link to="/core-vitals" className="nav-btn">Core Vitals</Link>
         </div>
       </div>

@@ -26,7 +26,7 @@ export const generatePDF = (className, url) => {
     <div style="text-align: center; margin-bottom: 20px; font-family: Arial, sans-serif;">
       <div style="display: flex; justify-content: center; align-items: center; border-bottom: 2px solid #34495E; padding-bottom: 10px;">
         <img
-          src="https://i.ibb.co/Chmkbqb/e178c0b8bfa6.jpg"
+          src="https://media-hosting.imagekit.io//a45bc55f29d64055/logo.jpg?Expires=1736400057&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=s0pck~Wj-hrbXg4XhH9kEQD4J7EZDO7quYIW9cpzb6unOtCIvOkPJzHcLMonIk2x65KYQVSQePCy~FxYeEwQ~O-bn4PYGW7JSQHuOtuszm5z7uv~P3cONcwLJ9lrjeMvIo8T7KJTRiRR7pGk78FLNyHK3hIvzSLa7~m9SEVbDnHWZ43Y5zblgTdip-8SiTiNWeHETXI2ygquhP3XpNEjHO9uuMlpai26JbRuM-En24pnwnkQ-n4kGZXoeIjD51nRlUgCeOyQKGbwirD5pQnjLbJLP~AhEasX0JU83GS5jkv~x6ewHkUwdfJo2Jdg98vdq0SWZDI8Em4TRMWA4fL5RQ__"
           alt="Logo"
           style="width: 100px; height: 100px; margin-right: 20px;"
         />

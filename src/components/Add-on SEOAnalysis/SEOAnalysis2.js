@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
-import Part from './part.js';
+import Part from '../SEOAnalysis/part.js';
 import '../styles/SEOAnalysis.css';
 import { generatePDF } from '../utils/DownloadPDF.js';
 import PopupForm from '../utils/email.jsx';
 
 import { 
-  checkMetaTags, 
-  checkIndexation,  
-  checkSearchOptimization, 
-  checkSocialNetworks, 
-  checkCustom404, 
-  checkDomains, 
-  checkHeadingTags, 
-  checkSecurity 
+  checkTwitterCards, 
+  checkOpenGraph, 
+  checkImageTags, 
+  checkLinks, 
+  checkURLVulnerability, 
 } from '../utils/seoCheck';
 
-const SEOAnalysis = () => {
+const SEOAnalysis2 = () => {
   const [sourceCode, setSourceCode] = useState('');
   const [robots, setRobots] = useState('');
   const [sitemap, setSitemap] = useState('');
@@ -68,14 +65,14 @@ const SEOAnalysis = () => {
   };
 
   const parts = [
-    { name: 'Meta Tags', util: checkMetaTags },
-    { name: 'Indexation', util: checkIndexation },
-    { name: 'Search Optimization', util: checkSearchOptimization },
-    { name: 'Social Networks', util: checkSocialNetworks },
-    { name: 'Custom 404 Page', util: checkCustom404 },
-    { name: 'Domains', util: checkDomains },
-    { name: 'Heading Tags', util: checkHeadingTags },
-    { name: 'Security', util: checkSecurity },
+
+    { name: 'Twitter Cards', util: checkTwitterCards },
+    { name: 'Open Graph', util: checkOpenGraph },
+    { name: 'Image Tags', util: checkImageTags },
+    
+    { name: 'Links', util: checkLinks },
+
+    { name: 'URL Vulnerability', util: checkURLVulnerability },
   ];
 
   const handleDownloadReportPDF = () => {
@@ -124,8 +121,8 @@ const SEOAnalysis = () => {
   return (
     <div className="seo-analysis">
       <div className="seo-intro">
-        <h1>SEO Analysis Tool</h1>
-        <p>Enter a URL to analyze its SEO performance. This tool checks various aspects of your webpage, such as Meta Tags, Security, and more. Click "Analyze" to start the process and explore detailed results for each part.</p>
+        <h1>Add-on SEO Analysis Tool</h1>
+        <p>Enter a URL to analyze its SEO performance. This tool checks various aspects of your webpage, such as Twitter Cards, Open Graph, Images Tag, Links, URL Vulnerabilty </p>
       </div>
 
       <div className="url-input">
@@ -212,4 +209,4 @@ const SEOAnalysis = () => {
   );
 };
 
-export default SEOAnalysis;
+export default SEOAnalysis2;

@@ -229,48 +229,58 @@ export const checkMetaTags = (sourceCode) => {
     };
 };
   
-  export const checkURLVulnerability = (sourceCode) => {
-    const anchorMatches = [...sourceCode.matchAll(/<a\s[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)];
-    const anchorData = anchorMatches.map((match, index) => {
-        const href = match[1];
-        
+export const checkURLVulnerability = (sourceCode) => {
+  const anchorMatches = [...sourceCode.matchAll(/<a\s[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)];
 
-        // Check conditions
-        const isLowerCase = href === href.toLowerCase() ? '&#10003;' : '&#10007;';
-        const hasUnderscores = href.includes('_') ? '&#10007;' : '&#10003;';
-        const hasDuplicateSlashes = /\/{2,}/.test(href.replace(/^https?:\/\//, '')) ? '&#10007;' : '&#10003;';
+  // Social media domains to be excluded
+  const socialMediaPlatforms = ['facebook.com', 'twitter.com', 'instagram.com', 'linkedin.com', 'pinterest.com'];
 
-        return {
-            link: href,
-            isLowerCase,
-            hasUnderscores,
-            hasDuplicateSlashes,
-            isValid: isLowerCase === 'YES' && hasUnderscores === 'NO' && hasDuplicateSlashes === 'NO',
-        };
+  const anchorData = anchorMatches
+    .filter((match) => {
+      const href = match[1];
+      // Exclude social media links based on the domain
+      return !socialMediaPlatforms.some(platform => href.includes(platform));
+    })
+    .map((match, index) => {
+      const href = match[1];
+
+      // Check conditions
+      const isLowerCase = href === href.toLowerCase() ? '&#10003' : '&#10007';
+      const hasUnderscores = href.includes('_') ? '&#10007' : '&#10003';
+      const hasDuplicateSlashes = /\/{2,}/.test(href.replace(/^https?:\/\//, '')) ? '&#10007' : '&#10003';
+
+      return {
+        link: href,
+        isLowerCase,
+        hasUnderscores,
+        hasDuplicateSlashes,
+        isValid: isLowerCase === '&#10003' && hasUnderscores === '&#10003' && hasDuplicateSlashes === '&#10003',
+      };
     });
-    return anchorData
+
+  return anchorData;
+}
+
+  
+  
+export const checkSocialNetworks = (sourceCode) => {
+  const socialLinks = [...sourceCode.matchAll(/<a\s+href="(https?:\/\/(www\.)?(facebook.com|twitter.com|instagram.com|linkedin.com|pinterest.com)\.com\/[^"]+)"[^>]*>(.*?)<\/a>/gi)];
+  
+      // Process each social link found
+      const socialData = socialLinks.map((match, index) => {
+          const href = match[1]; // Full URL of the link
+          const platform = match[3]; // Social platform (facebook, twitter, etc.)
+          
+          
+          return {
+              sNo: index + 1,
+              link: href,
+              platform,
+          };
+      });
+  
+      return socialData
   }
-  
-  
-  export const checkSocialNetworks = (sourceCode) => {
-    const socialLinks = [...sourceCode.matchAll(/<a\s+href="(https?:\/\/(www\.)?(facebook|twitter|instagram|linkedin|pinterest)\.com\/[^"]+)"[^>]*>(.*?)<\/a>/gi)];
-    
-        // Process each social link found
-        const socialData = socialLinks.map((match, index) => {
-            const href = match[1]; // Full URL of the link
-            const platform = match[3]; // Social platform (facebook, twitter, etc.)
-            
-            
-            return {
-                sNo: index + 1,
-                link: href,
-                platform,
-            };
-        });
-    
-        return socialData
-    }
-  
 
     export const checkCustom404 = (sourceCode, url, robots, sitemap, page404, customIndicators = [
       'oops',               // Common text used in custom 404 pages

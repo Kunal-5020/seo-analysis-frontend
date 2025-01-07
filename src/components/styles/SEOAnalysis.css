@@ -134,6 +134,11 @@
   background-color: #0056b3; /* Darker blue on hover */
 }
 
+.part-button:active {
+  background-color: #003f7f; /* Even darker blue when active */
+  transform: scale(0.95); /* Slightly reduce size for click effect */
+}
+
 /* Report Field Styling */
 .report-field {
   display: block !important;
@@ -155,8 +160,11 @@
 
 table {
   width: 100%; /* Table takes full width of the container */
-  table-layout: fixed; /* Prevent table columns from expanding beyond the container */
+  
   border-collapse: collapse;
+}
+.table{
+  table-layout: fixed;
 }
 
 table th,
@@ -430,3 +438,5 @@ h3 {
 .popup-content button:hover {
   background-color: #0056b3;
 }
+
+

@@ -7,12 +7,12 @@ const SearchOptimization = (data) => {
     <div>
     <h2>Search Optimization Report</h2>
     <h3>Canonical Link Tag</h3>
-    <table>
+    <table  >
       <thead>
         <tr>
-          <td>S.No</td>
-          <td>Link</td>
-          <td>Elements</td>
+          <td >S.No</td>
+          <td >Link</td>
+          {/* <td>Elements</td> */}
         </tr>
         </thead>
         <tbody>
@@ -20,11 +20,12 @@ const SearchOptimization = (data) => {
         <tr>
           <td> 1</td>
           <td>{canonicalLinks[0].match(/href="([^"]+)"/)[1]}</td>
-          <td>{canonicalLinks[0]}</td>
+          {/* <td>{canonicalLinks[0]}</td> */}
         </tr>
         </tbody></table>
-        <table><tbody>
-          <h3>Output</h3>
+        <h3>Output</h3>
+        <table  ><tbody>
+          
           <tr>
             <td><strong>Status</strong></td>
             <td><p className={`output-status ${canonicalLinks ? 'success' : 'failure'}`} > {canonicalLinks ? 'Success' : 'Failure'}</p></td>
@@ -42,12 +43,12 @@ const SearchOptimization = (data) => {
         <br/>
         
         <h3>Alternate_Links</h3>
-        <table>
+        <table >
         <thead>
           <tr>
             <td>S.No</td>
             <td>Link</td>
-            <td>Element</td>
+            {/* <td>Element</td> */}
           </tr>
         </thead>
         <tbody>
@@ -55,13 +56,13 @@ const SearchOptimization = (data) => {
           <tr>
           <td>{index + 1}</td>
           <td>{link.match(/href="([^"]+)"/)[1]}</td>
-          <td>{link}</td>
+          {/* <td>{link}</td> */}
         </tr>
         ))}
         </tbody>
         </table>
         <h3>Output</h3>
-        <table>
+        <table  >
         <tbody>
           <tr>
             <td><strong>Status</strong></td>
@@ -80,38 +81,59 @@ const SearchOptimization = (data) => {
         <br/>
         
         <h3>Schema Markups-Structured Data </h3>
-        <table>
+        <table  >
         <thead>
           <tr>
             <td>S.No</td>
             <td>Part</td>
-            <td>Element</td>
+            <td>Present</td>
           </tr>
         </thead>
         <tbody>
         <tr>
           <td>1</td>
           <td>HEAD</td>
-          <td>{headSchema[0]}</td>
+          <td>{headSchema && headSchema.length > 0 ? "Yes": "No schema found"}</td>
         </tr>
         <tr>
           <td>2</td>
           <td>BODY</td>
-          <td>{bodySchema[0]}</td>
+          <td>{bodySchema && bodySchema.length > 0 ? "Yes" : "No schema found"}</td>
         </tr>
         </tbody>
         </table>
         <h3>Output</h3>
-        <table>
+        <table  >
         <tbody>
         <tr>
           <td><strong>Status</strong></td>
-          <td><p className={`output-status ${headSchema ? 'success' : 'failure'}`} > {headSchema ? 'Success' : 'Failure'}</p></td>
+          <td>
+          <p
+          className={`output-status ${
+            headSchema && headSchema.length > 0
+              ? "success"
+              : bodySchema && bodySchema.length > 0
+              ? "warning"
+              : "failure"
+          }`}
+        >           {headSchema && headSchema.length > 0
+          ? "Success"
+          : bodySchema && bodySchema.length > 0
+          ? "Warning"
+          : "Failure"}
+          </p>
+            </td>
         </tr>
         <tr>
           <td><strong>Report</strong></td>
-          <td>Warning: Placing Schema markup inside the body or other tags may hinder SEO effectiveness, as it's best practice to include structured data within the head section for optimal search engine visibility and interpretation.</td>
-        </tr>
+          <td>
+        {headSchema && headSchema.length > 0
+          ? "Schema markup is correctly placed in the head section, which is ideal for SEO."
+          : bodySchema && bodySchema.length > 0
+          ? "Schema markup is found in the body section. While this is recognized by search engines, placing schema in the head section is recommended for better SEO practices."
+          : "No schema markup found. Adding structured data to the head section can improve your webpage's SEO and visibility in search results."}
+      </td>
+      </tr>
       </tbody>
     </table>
   

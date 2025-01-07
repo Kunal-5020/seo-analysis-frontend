@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Domains = ( result ) => {
+
+const Domains = (result) => {
   try {
     if (!result || !result.result) {
       throw new Error("No result data provided.");
@@ -9,9 +10,9 @@ const Domains = ( result ) => {
     const data = result.result;
 
     return (
-      <div>
-        <h2>Domain Report</h2>
-        <table border="1" cellPadding="10" cellSpacing="0" style={{ width: '100%', textAlign: 'left' }}>
+      <div className="domain-report-container">
+        <h2 className="domain-report-title">Domain Report</h2>
+        <table className="domain-report-table">
           <tbody>
             <tr>
               <td><strong>Domain</strong></td>
@@ -31,7 +32,15 @@ const Domains = ( result ) => {
             </tr>
             <tr>
               <td><strong>Status</strong></td>
-              <td><p className={`output-status ${data.status==='Success' ? 'success' : 'failure'}`} > {data.status==='Success' ? 'Success' : 'Failure'}</p></td>
+              <td>
+                <p
+                  className={`output-status ${
+                    data.status === 'Success' ? 'success' : 'failure'
+                  }`}
+                >
+                  {data.status === 'Success' ? 'Success' : 'Failure'}
+                </p>
+              </td>
             </tr>
             <tr>
               <td><strong>Message</strong></td>
@@ -47,9 +56,9 @@ const Domains = ( result ) => {
     );
   } catch (error) {
     return (
-      <div>
-        <h2>Error in the code</h2>
-        <p>{error.message}</p>
+      <div className="error-container">
+        <h2 className="error-title">Error in the Code</h2>
+        <p className="error-message">{error.message}</p>
       </div>
     );
   }

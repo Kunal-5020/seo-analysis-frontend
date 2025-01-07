@@ -60,7 +60,7 @@ const OpenGraphs = ({ result }) => {
           <table>
             <thead>
               <tr>
-                <th>Requirement</th>
+                <th>Tags</th>
                 <th>Present</th>
                 <th>Content</th>
                 <th>Length</th>
@@ -80,7 +80,7 @@ const OpenGraphs = ({ result }) => {
 
                 return (
                   <tr key={index}>
-                    <td>og:{tag}</td>
+                    <td>{tag}</td>
                     <td>{content ? "Yes" : "No"}</td>
                     <td>{content || "Not Found"}</td>
                     <td>{length !== null ? length : "N/A"}</td>
@@ -90,7 +90,7 @@ const OpenGraphs = ({ result }) => {
                           status === "Success" ? "success" : status === "Warning" ? "warning" : "failure"
                         }`}
                       >
-                        {validation ? validation.message : status}
+                        {status}
                       </p>
                     </td>
                   </tr>
