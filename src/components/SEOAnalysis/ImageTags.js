@@ -79,7 +79,7 @@ const ImageTags = (results) => {
         {/* Images Section */}
         <div className="images-section">
           <h3>Images</h3>
-          <table className='table'>
+          <table >
             <thead>
               <tr>
                 <th>S.No</th>

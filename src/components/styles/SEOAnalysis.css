@@ -152,7 +152,6 @@
 
 /* Table Container Styling */
 .table-container {
-  overflow-x: auto; /* Enable horizontal scrolling if needed */
   margin-top: 20px;
   width: 100%;
   max-width: 8.5in; /* Ensure table doesn't extend beyond the report field */
@@ -160,11 +159,18 @@
 
 table {
   width: 100%; /* Table takes full width of the container */
-  
+    page-break-inside: avoid;
+    break-inside: avoid;
   border-collapse: collapse;
 }
+
 .table{
   table-layout: fixed;
+} 
+
+tr{
+  page-break-inside: avoid;
+    break-inside: avoid;
 }
 
 table th,
@@ -177,13 +183,13 @@ table td {
 table td {
   word-wrap: break-word;
   overflow-wrap: break-word;
-  white-space: normal; /* Allow text to wrap within cells */
+  white-space: normal; 
 }
 
 /* Output Status */
 .output-status {
   margin: 10px 0;
-  padding: 12px;
+  padding: 10px;
   border-radius: 6px;
   font-weight: bold;
   max-width: fit-content;
