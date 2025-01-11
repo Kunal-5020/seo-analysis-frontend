@@ -35,6 +35,7 @@ const SEOAnalysis2 = () => {
 
     try {
       const proxyUrl = `https://seo-analystics.onrender.com/proxy-fetch?url=${encodeURIComponent(url)}`;
+      // const proxyUrl = `http://localhost:5000/proxy-fetch?url=${encodeURIComponent(url)}`;
       const response = await fetch(proxyUrl);
 
       if (!response.ok) {

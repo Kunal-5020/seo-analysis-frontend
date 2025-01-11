@@ -35,18 +35,19 @@ export const generatePDF = (className, url) => {
       <p style="font-size: 14px; color: #34495E;">Generated on: ${new Date().toLocaleString()}</p>
     </div>
     <!-- Main Content -->
-    <div style="width: 100%; font-family: Arial, sans-serif;">    
+    <div style="width: 100%; font-family: Arial, sans-serif; text-align: center;">  
+    <h1>Report on ${url}</h1>   
       ${contentElement.outerHTML}
     </div>
     <!-- Footer -->
     <div style="text-align: center; font-size: 14px; font-family: Arial, sans-serif; color: #7F8C8D; border-top: 1px solid #BDC3C7; padding-top: 10px;">
-      <p>Contact us: <a href="mailto:contact@dgtlmart.com" style="color: #2980B9;">9810559439</a> | Phone: 9810559439</p>
+      <p>Contact us: <a href="mailto:contact@dgtlmart.com" style="color: #2980B9;">contact@dgtlmart.com</a> | Phone: 9810559439</p>
       <p>Generated using SEO Analysis Tool</p>
     </div>
   `;
 
   const options = {
-    margin: [0.5, 0.5, 1, 0.5], // Increased bottom margin for footer
+    margin: [0.2, 0, 0.2, 0], // Increased bottom margin for footer
     filename: 'SEO_Report_All.pdf',
     html2canvas: {
       scale: 3, // Higher resolution
@@ -60,7 +61,7 @@ export const generatePDF = (className, url) => {
       orientation: 'portrait',
     },
     pagebreak: {
-      mode: ['css', 'legacy'], // Add proper page breaks
+      mode: ['avoid-all','css', 'legacy'], // Add proper page breaks
       avoid: ['.avoid-break'], // Avoid breaking certain elements
     },
   };
