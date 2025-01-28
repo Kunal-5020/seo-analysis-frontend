@@ -34,7 +34,7 @@ const PopupForm = ({ onSubmit, setIsPopupVisible }) => {
         });
 
         if (response.ok) {
-          alert('Thank You for Trusting Us your Download will be Starting now!');
+          alert('Now you can Analyze freely ( Its only a one time form submission )');
           onSubmit(); // Trigger the callback after form submission
           localStorage.setItem('formSubmitted', 'true');
           setIsPopupOpen(false); // Close the popup after submission
