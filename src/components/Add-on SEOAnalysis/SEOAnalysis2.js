@@ -23,13 +23,26 @@ const SEOAnalysis2 = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [allResults, setAllResults] = useState({});
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false); 
+
+
+  const checkIfFormSubmitted = () => {
+    return localStorage.getItem('formSubmitted') === 'true';
+  };
+  
+  
+  const isOldUser = checkIfFormSubmitted();
+
 
   const handleAnalyze = async () => {
     if (!url) {
       alert('Please enter a valid URL!');
       return;
     }
+
+    if(!isOldUser){
+      setIsPopupVisible(true)
+    }
+    else{
 
     setIsAnalyzing(true);
 
@@ -63,6 +76,7 @@ const SEOAnalysis2 = () => {
     } finally {
       setIsAnalyzing(false);
     }
+  }
   };
 
   const parts = [
@@ -77,17 +91,11 @@ const SEOAnalysis2 = () => {
   ];
 
   const handleDownloadReportPDF = () => {
-    if (!isFormSubmitted) {
-      alert('Please submit the form before downloading the report!');
-      return;
-    }
-
     const reportField = document.querySelector('.report-field');
     if (!reportField) {
       alert('No report available to download!');
       return;
     }
-
     generatePDF('report-field', url);
   };
 
@@ -96,26 +104,13 @@ const SEOAnalysis2 = () => {
   };
 
   const handleFormSubmission = () => {
-    setIsFormSubmitted(true); 
-    localStorage.setItem('formSubmitted', 'true');
-    setIsPopupVisible(false); // Close the popup form
-    handleDownloadReportPDF();
+    setIsPopupVisible(false);
   };
 
-  const checkIfFormSubmitted = () => {
-    return localStorage.getItem('formSubmitted') === 'true';
-  };
-
-  const isOldUser = checkIfFormSubmitted();
 
   const handleDownload=()=>{
-    if(!isOldUser){
-      setIsPopupVisible(true)
-    }
-    else{
-      setIsFormSubmitted(true)
       handleDownloadReportPDF();
-    }
+
   }
 
 
@@ -200,12 +195,12 @@ const SEOAnalysis2 = () => {
         </div>
       )}
 
-      {/* Popup Form */}
-      {isPopupVisible && (
+{isPopupVisible && (
         <div className="popup-overlay">
           <PopupForm onSubmit={handleFormSubmission} setIsPopupVisible={setIsPopupVisible} />
         </div>
       )}
+
     </div>
   );
 };

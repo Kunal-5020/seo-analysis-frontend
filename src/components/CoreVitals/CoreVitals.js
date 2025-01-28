@@ -11,11 +11,22 @@ const PageSpeedInsights = () => {
   const [error, setError] = useState(null);
   const [experienceView, setExperienceView] = useState('loadingExperience'); // Default is 'loadingExperience'
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [loadTimes, setLoadTimes] = useState([]); // Track loading times
   const [averageLoadTime, setAverageLoadTime] = useState(null); // Store average load time
 
+  
+  const checkIfFormSubmitted = () => {
+    return localStorage.getItem('formSubmitted') === 'true';
+  };
+  
+  
+  const isOldUser = checkIfFormSubmitted();
+
   const fetchPageSpeedData = async () => {
+    if(!isOldUser){
+      setIsPopupVisible(true)
+    }
+    else{
     setLoading(true);
     setError(null);
     setData(null);
@@ -39,13 +50,10 @@ const PageSpeedInsights = () => {
       setAverageLoadTime(loadTimes.reduce((acc, time) => acc + time, 0) / loadTimes.length); // Calculate average
       setLoading(false);
     }
+  }
   };
 
   const handleDownloadReportPDF = () => {
-    if (!isFormSubmitted) {
-      alert('Please submit the form before downloading the report!');
-      return;
-    }
 
     const reportField = document.querySelector('.both-view');
     if (!reportField) {
@@ -56,28 +64,13 @@ const PageSpeedInsights = () => {
   };
 
   const handleFormSubmission = () => {
-    setIsFormSubmitted(true); 
-    localStorage.setItem('formSubmitted', 'true');
     setIsPopupVisible(false); // Close the popup form
-    handleDownloadReportPDF();
   };
 
-  const checkIfFormSubmitted = () => {
-    return localStorage.getItem('formSubmitted') === 'true';
-  };
-
-  const isOldUser = checkIfFormSubmitted();
 
   const handleDownload=()=>{
-    if(!isOldUser){
-      setIsPopupVisible(true)
-    }
-    else{
-      setIsFormSubmitted(true)
       handleDownloadReportPDF();
-    }
   }
-
 
 
   const checkCoreVitals = (experienceData) => {

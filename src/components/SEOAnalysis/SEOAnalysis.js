@@ -3,7 +3,6 @@ import Part from './part.js';
 import '../styles/SEOAnalysis.css';
 import { generatePDF } from '../utils/DownloadPDF.js';
 import PopupForm from '../utils/email.jsx';
-
 import { 
   checkMetaTags, 
   checkIndexation,  
@@ -16,58 +15,12 @@ import {
 } from '../utils/seoCheck';
 
 const SEOAnalysis = () => {
-  const [sourceCode, setSourceCode] = useState('');
-  const [robots, setRobots] = useState('');
-  const [sitemap, setSitemap] = useState('');
-  const [page404, setPage404] = useState('');
-  const [selectedPart, setSelectedPart] = useState(null);
   const [url, setUrl] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [allResults, setAllResults] = useState({});
+  const [selectedPart, setSelectedPart] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false); 
-
-  const handleAnalyze = async () => {
-    if (!url) {
-      alert('Please enter a valid URL!');
-      return;
-    }
-
-    setIsAnalyzing(true);
-
-    try {
-      const proxyUrl = `https://seo-analystics.onrender.com/proxy-fetch?url=${encodeURIComponent(url)}`;
-      // const proxyUrl = `http://localhost:5000/proxy-fetch?url=${encodeURIComponent(url)}`;
-      
-      const response = await fetch(proxyUrl);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch source code: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      setSourceCode(data.sourceCode);
-      setRobots(data.robots);
-      setSitemap(data.sitemap);
-      setPage404(data.page404);
-
-      setIsAnalyzed(true);
-      setSelectedPart(null);
-
-      const results = {};
-      parts.forEach((part) => {
-        results[part.name] = part.util(data.sourceCode, url, robots, sitemap, page404);
-      });
-      setAllResults(results);
-
-    } catch (error) {
-      console.error(error);
-      alert('Failed to fetch source code. Please check the URL and try again.');
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
 
   const parts = [
     { name: 'Meta Tags', util: checkMetaTags },
@@ -80,48 +33,53 @@ const SEOAnalysis = () => {
     { name: 'Security', util: checkSecurity },
   ];
 
-  const handleDownloadReportPDF = () => {
-    if (!isFormSubmitted) {
-      alert('Please submit the form before downloading the report!');
-      return;
-    }
-
-    const reportField = document.querySelector('.report-field');
-    if (!reportField) {
-      alert('No report available to download!');
-      return;
-    }
-
-    generatePDF('report-field', url);
-  };
-
-  const handleAllParts = () => {
-    setSelectedPart(null);
-  };
-
-  const handleFormSubmission = () => {
-    setIsFormSubmitted(true); 
-    localStorage.setItem('formSubmitted', 'true');
-    setIsPopupVisible(false); // Close the popup form
-    handleDownloadReportPDF();
-  };
-
   const checkIfFormSubmitted = () => {
     return localStorage.getItem('formSubmitted') === 'true';
   };
-
+  
+  
   const isOldUser = checkIfFormSubmitted();
 
-  const handleDownload=()=>{
-    if(!isOldUser){
-      setIsPopupVisible(true)
-    }
-    else{
-      setIsFormSubmitted(true)
-      handleDownloadReportPDF();
+  const handleAnalyze = async () => {
+    if (!url) return alert('Please enter a valid URL!');
+
+    if (!isOldUser) {
+      setIsPopupVisible(true);
+    } else {
+    setIsAnalyzing(true);
+    try {
+      const response = await fetch(`https://seo-analystics.onrender.com/proxy-fetch?url=${encodeURIComponent(url)}`);
+      if (!response.ok) throw new Error('Failed to fetch source code');
+      
+      const data = await response.json();
+      const results = parts.reduce((acc, part) => {
+        acc[part.name] = part.util(data.sourceCode, url, data.robots, data.sitemap, data.page404);
+        return acc;
+      }, {});
+      
+      setAllResults(results);
+      setIsAnalyzed(true);
+    } catch (error) {
+      alert('Failed to fetch source code. Please check the URL and try again.');
+    } finally {
+      setIsAnalyzing(false);
     }
   }
+  };
 
+  const handleDownloadReportPDF = () => {
+    const reportField = document.querySelector('.report-field');
+    if (!reportField) return alert('No report available to download!');
+    generatePDF('report-field', url);
+  };
+
+  const handleFormSubmission = () => {
+    setIsPopupVisible(false);
+  };
+
+  const handleDownload = () => {
+      handleDownloadReportPDF();
+  };
 
   return (
     <div className="seo-analysis">
@@ -137,9 +95,7 @@ const SEOAnalysis = () => {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
-        <button className="analyze-button" onClick={handleAnalyze} disabled={isAnalyzing}>
-          Analyze
-        </button>
+        <button className="analyze-button" onClick={handleAnalyze} disabled={isAnalyzing}>Analyze</button>
       </div>
 
       {isAnalyzing && (
@@ -149,44 +105,40 @@ const SEOAnalysis = () => {
         </div>
       )}
 
-{isAnalyzed && (
-  <div className="analysis-parts">
-    <h3>Select a Part to Analyze:</h3>
-    <p>Choose from the following sections to see detailed analysis of each SEO aspect:</p>
-    {parts.map((part, index) => (
-      <button
-        className={`part-button ${selectedPart === part ? "active" : ""}`}
-        key={index}
-        onClick={() => setSelectedPart(part)}
-      >
-        {part.name}
-      </button>
-    ))}
-    <button
-      className={`part-button ${selectedPart === "All" ? "active" : ""}`}
-      onClick={() => {
-        setSelectedPart("All");
-        handleAllParts();
-      }}
-    >
-      All
-    </button>
-  </div>
-)}
-
+      {isAnalyzed && (
+        <div className="analysis-parts">
+          <h3>Select a Part to Analyze:</h3>
+          <p>Choose from the following sections to see detailed analysis of each SEO aspect:</p>
+          {parts.map((part, index) => (
+            <button
+              key={index}
+              className={`part-button ${selectedPart === part ? "active" : ""}`}
+              onClick={() => setSelectedPart(part)}
+            >
+              {part.name}
+            </button>
+          ))}
+          <button
+            className={`part-button ${selectedPart === "All" ? "active" : ""}`}
+            onClick={() => setSelectedPart(null)}
+          >
+            All
+          </button>
+        </div>
+      )}
 
       {selectedPart === null && isAnalyzed && (
         <div>
-        <button className="part-button download-pdf-button" onClick={handleDownload}>
-          Download Report as PDF
-        </button>
-        <div className="report-field">
-          {parts.map((part) => (
-            <div key={part.name}>
-              <Part partName={part.name} result={allResults[part.name]} />
-            </div>
-          ))}
-        </div>
+          <button className="part-button download-pdf-button" onClick={handleDownload}>
+            Download Report as PDF
+          </button>
+          <div className="report-field">
+            {parts.map((part) => (
+              <div key={part.name}>
+                <Part partName={part.name} result={allResults[part.name]} />
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
@@ -196,15 +148,11 @@ const SEOAnalysis = () => {
             Download Report as PDF
           </button>
           <div className="report-field">
-            <Part
-              partName={selectedPart.name}
-              result={selectedPart.util(sourceCode, url, robots, sitemap, page404)}
-            />
+            <Part partName={selectedPart.name} result={allResults[selectedPart.name]} />
           </div>
         </div>
       )}
 
-      {/* Popup Form */}
       {isPopupVisible && (
         <div className="popup-overlay">
           <PopupForm onSubmit={handleFormSubmission} setIsPopupVisible={setIsPopupVisible} />

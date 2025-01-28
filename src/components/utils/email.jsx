@@ -36,6 +36,7 @@ const PopupForm = ({ onSubmit, setIsPopupVisible }) => {
         if (response.ok) {
           alert('Thank You for Trusting Us your Download will be Starting now!');
           onSubmit(); // Trigger the callback after form submission
+          localStorage.setItem('formSubmitted', 'true');
           setIsPopupOpen(false); // Close the popup after submission
         } else {
           alert('Failed to send details. Please try again.');
