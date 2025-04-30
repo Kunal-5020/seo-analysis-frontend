@@ -33,7 +33,7 @@ const PageSpeedInsights = () => {
     const startTime = Date.now();
     try {
       const response = await fetch(
-        `https://seo-analystics.onrender.com/pagespeed?url=${encodeURIComponent(url)}`
+        `https://seo-analystics2.onrender.com/pagespeed?url=${encodeURIComponent(url)}`
         // `http://localhost:5000/pagespeed?url=${encodeURIComponent(url)}`
       );
       if (!response.ok) {

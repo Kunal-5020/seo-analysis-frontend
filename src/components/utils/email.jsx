@@ -95,7 +95,7 @@ const PopupForm = ({ onSubmit, setIsPopupVisible }) => {
             </div>
 
             <button type="submit" className="submit-btn">
-              Submit
+            Submit
             </button>
           </form>
         </div>
