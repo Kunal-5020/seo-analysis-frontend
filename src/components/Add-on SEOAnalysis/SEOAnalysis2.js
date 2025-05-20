@@ -47,8 +47,8 @@ const SEOAnalysis2 = () => {
     setIsAnalyzing(true);
 
     try {
-      const proxyUrl = `https://seo-analystics2.onrender.com/proxy-fetch?url=${encodeURIComponent(url)}`;
-      // const proxyUrl = `http://localhost:5000/proxy-fetch?url=${encodeURIComponent(url)}`;
+      // const proxyUrl = `https://seo-analystics2.onrender.com/proxy-fetch?url=${encodeURIComponent(url)}`;
+      const proxyUrl = `http://localhost:5000/proxy-fetch?url=${encodeURIComponent(url)}`;
       const response = await fetch(proxyUrl);
 
       if (!response.ok) {

@@ -48,7 +48,8 @@ const SEOAnalysis = () => {
     } else {
     setIsAnalyzing(true);
     try {
-      const response = await fetch(`https://seo-analystics2.onrender.com/proxy-fetch?url=${encodeURIComponent(url)}`);
+      // const response = await fetch(`https://seo-analystics2.onrender.com/proxy-fetch?url=${encodeURIComponent(url)}`);
+      const response = await fetch(`http://localhost:5000/proxy-fetch?url=${encodeURIComponent(url)}`);
       if (!response.ok) throw new Error('Failed to fetch source code');
       
       const data = await response.json();
